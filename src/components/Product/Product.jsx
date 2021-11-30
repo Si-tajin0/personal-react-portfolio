@@ -12,7 +12,9 @@ const Product = ({ img, link }) => {
             <a href={link} target="_blank" rel="noreferrer">
                 <img src={img} alt="" className='p-img' />
             </a>
+            
         </div>
+        
     );
 };
 

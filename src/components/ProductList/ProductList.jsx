@@ -20,6 +20,7 @@ const ProductList = () => {
                             link={item.link}
                         ></Product>
                     ))}
+                    
             </div>
         </div>
     );

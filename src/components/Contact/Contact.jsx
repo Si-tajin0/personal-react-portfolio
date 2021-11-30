@@ -23,6 +23,7 @@ const Contact = () => {
             });
     }
     return (
+        <>
         <div className="c">
             <div className="c-bg"></div>
             <div className="c-wrapper">
@@ -41,7 +42,7 @@ const Contact = () => {
                         </div>
                         <div className="c-info-item">
                             <img src={address} alt="" className="c-icon" />
-                            Bamni bazar, companigong, Noakhali.
+                            Noakhali, Bangladesh.
                         </div>
                     </div>
                 </div>
@@ -60,6 +61,41 @@ const Contact = () => {
                 </div>
             </div>
         </div>
+        <div className="footer">
+            <div style={{textAlign: "center"}}>
+                <p>
+                    <small>Copyright &copy; 2021 | SI TAJIN</small>
+                </p>
+                <p>
+          <address>Noakhali, Bangladesh</address>
+        </p>
+        <div>
+          <button className="icon-button">
+            <a  target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/syful-islam-29882a180/">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </button>
+          <button className="icon-button">
+            <a  target="_blank" rel="noreferrer" className="icon-button"  href="https://github.com/Si-tajin0">
+             
+            <i class="fab fa-github"></i>
+            </a>
+          </button>
+          <button className="icon-button">
+            <a  target="_blank" rel="noreferrer" className="icon-button" href="https://www.instagram.com/si_tajin">
+            
+            <i class="fab fa-instagram"></i>
+            </a>
+          </button>
+          <button className="icon-button">
+            <a  target="_blank" rel="noreferrer" className="icon-button"  href="https://www.facebook.com/saiful.tajin/">
+            <i class="fab fa-facebook-square"></i>
+            </a>
+          </button>
+        </div>
+            </div>
+        </div>
+        </>
     );
 };
 
