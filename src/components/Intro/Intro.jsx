@@ -64,7 +64,7 @@ const Intro = () => {
             View Work
           </a>
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1iT1_YDNYSmkNsDE-JXTgZWFWubIlZ2Bp/view?usp=drive_link"
             download
             className="px-8 py-3.5 border-2 border-gray-900 dark:border-gray-600 text-gray-900 dark:text-white font-bold rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all transform hover:-translate-y-1 flex items-center gap-2"
           >
@@ -83,7 +83,7 @@ const Intro = () => {
             <i className="fab fa-github text-xl"></i>
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/syful-islam-29882a180/"
             target="_blank"
             rel="noreferrer"
             className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all shadow-sm border border-gray-100 dark:border-gray-700"
@@ -91,7 +91,7 @@ const Intro = () => {
             <i className="fab fa-linkedin-in text-xl"></i>
           </a>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/si_tajin"
             target="_blank"
             rel="noreferrer"
             className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all shadow-sm border border-gray-100 dark:border-gray-700"

@@ -1,139 +1,286 @@
-import React, { useContext, useRef, useState } from 'react';
-import emailjs from 'emailjs-com';
-import phone from "../../img/phone.png";
-import email from "../../img/email.png";
-import address from "../../img/address.png";
-import { ThemeContext } from '../../Context';
+import React, { useContext, useRef, useState } from "react";
+import emailjs from "emailjs-com";
+import { ThemeContext } from "../../Context";
 
 const Contact = () => {
-    const formRef = useRef();
-    const [done, setDone] = useState(false);
-    const theme = useContext(ThemeContext);
-    const darkMode = theme.state.darkMode;
+  const formRef = useRef();
+  const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const theme = useContext(ThemeContext);
+  const darkMode = theme.state.darkMode;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        emailjs.sendForm(
-            'service_a19thbg', 
-            'template_w06suif', 
-            formRef.current, 
-            'user_2F8J6Z6rbi6veI1p57CbU'
-        )
-        .then((result) => {
-            console.log(result.text);
-            setDone(true);
-            e.target.reset(); // ফর্ম ক্লিয়ার করার জন্য
-        }, (error) => {
-            console.log(error.text);
-        });
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    emailjs
+      .sendForm(
+        "service_a19thbg",
+        "template_w06suif",
+        formRef.current,
+        "user_2F8J6Z6rbi6veI1p57CbU",
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setDone(true);
+          setLoading(false);
+          e.target.reset();
+          setTimeout(() => setDone(false), 5000); // ৫ সেকেন্ড পর মেসেজ হাইড হবে
+        },
+        (error) => {
+          console.log(error.text);
+          setLoading(false);
+        },
+      );
+  };
 
-    return (
-        <section className={`py-20 px-6 md:px-16 lg:px-28 relative overflow-hidden ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`} id="contact">
-            
-            {/* Background Decorative Shape */}
-            <div className="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+  return (
+    <section
+      className={`py-24 px-6 md:px-16 lg:px-28 relative overflow-hidden transition-colors duration-500 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}
+      id="contact"
+    >
+      {/* Background Decorative Glows */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[150px] opacity-10 dark:opacity-20"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600 rounded-full blur-[150px] opacity-10 dark:opacity-20"></div>
 
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
-                
-                {/* Left Side: Contact Info */}
-                <div className="flex-1 space-y-10">
-                    <h1 className="text-4xl md:text-6xl font-black leading-tight">
-                        Let's discuss <br /> 
-                        <span className="text-blue-600 underline">your project</span>
-                    </h1>
-                    
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-5 group">
-                            <img src={phone} alt="Phone" className="w-8 h-8 group-hover:scale-110 transition-transform" />
-                            <span className="text-lg md:text-xl font-medium">+8801827900521</span>
-                        </div>
-                        <div className="flex items-center gap-5 group">
-                            <img src={email} alt="Email" className="w-8 h-8 group-hover:scale-110 transition-transform" />
-                            <span className="text-lg md:text-xl font-medium">saiful.tajin@gmail.com</span>
-                        </div>
-                        <div className="flex items-center gap-5 group">
-                            <img src={address} alt="Address" className="w-8 h-8 group-hover:scale-110 transition-transform" />
-                            <span className="text-lg md:text-xl font-medium">Noakhali, Bangladesh.</span>
-                        </div>
-                    </div>
-                </div>
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 relative z-10">
+        {/* Left Side: Contact Info */}
+        <div className="flex-1 space-y-10">
+          <div className="space-y-4">
+            <h4 className="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+              <span className="w-8 h-[2px] bg-blue-600"></span> Let's Connect
+            </h4>
+            <h1
+              className={`text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight ${darkMode ? "text-white" : "text-gray-900"}`}
+            >
+              Got a project? <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
+                Let's talk.
+              </span>
+            </h1>
+            <p
+              className={`text-lg leading-relaxed max-w-md pt-4 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+            >
+              Whether you have a question, a project idea, or just want to say
+              hi, my inbox is always open.
+            </p>
+          </div>
 
-                {/* Right Side: Contact Form */}
-                <div className="flex-1 space-y-8">
-                    <p className="text-lg md:text-xl leading-relaxed">
-                        <span className="font-bold text-blue-600 italic">What's your story?</span> Get in touch. Always freelancing if the right project comes along.
-                    </p>
-
-                    <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input 
-                                className={`border-b-2 py-3 px-1 outline-none focus:border-blue-600 transition-colors bg-transparent ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}
-                                type="text" name="user_name" placeholder="Name" required 
-                            />
-                            <input 
-                                className={`border-b-2 py-3 px-1 outline-none focus:border-blue-600 transition-colors bg-transparent ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}
-                                type="text" name="user_subject" placeholder="Subject" 
-                            />
-                        </div>
-                        <input 
-                            className={`border-b-2 py-3 px-1 outline-none focus:border-blue-600 transition-colors bg-transparent ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}
-                            type="email" name="user_email" placeholder="Email" required 
-                        />
-                        <textarea 
-                            className={`border-b-2 py-3 px-1 outline-none focus:border-blue-600 transition-colors bg-transparent ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}
-                            rows="4" placeholder="How can I help you?" name="message" required 
-                        />
-                        
-                        <div className="flex items-center gap-6">
-                            <button className="bg-blue-600 text-white px-10 py-3 rounded-lg font-bold hover:bg-gray-900 transition-all shadow-lg hover:shadow-blue-200 transform hover:-translate-y-1">
-                                Submit
-                            </button>
-                            {done && (
-                                <span className="text-green-500 font-medium animate-pulse">
-                                    Message sent successfully!
-                                </span>
-                            )}
-                        </div>
-                    </form>
-                </div>
+          {/* Modern Contact Cards */}
+          <div className="space-y-4 pt-4">
+            {/* Email Card */}
+            <div
+              className={`flex items-center gap-6 p-4 rounded-2xl border transition-transform hover:-translate-y-1 cursor-pointer ${darkMode ? "bg-gray-800 border-gray-700 hover:border-gray-600" : "bg-white border-gray-100 shadow-sm hover:shadow-md"}`}
+            >
+              <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center rounded-xl text-xl">
+                <i className="fas fa-envelope"></i>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">
+                  Email Me
+                </p>
+                <h3
+                  className={`text-lg font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+                >
+                  saiful.tajin@gmail.com
+                </h3>
+              </div>
             </div>
 
-            {/* Footer Section */}
-            <footer className={`mt-32 pt-10 border-t ${darkMode ? 'border-gray-800' : 'border-gray-100'}`}>
-                <div className="flex flex-col items-center gap-6">
-                    <div className="text-center space-y-2">
-                        <p className="font-bold text-xl tracking-widest uppercase">SI TAJIN</p>
-                        <p className="text-gray-400 text-sm italic">Noakhali, Bangladesh</p>
-                    </div>
+            {/* Phone Card */}
+            <div
+              className={`flex items-center gap-6 p-4 rounded-2xl border transition-transform hover:-translate-y-1 cursor-pointer ${darkMode ? "bg-gray-800 border-gray-700 hover:border-gray-600" : "bg-white border-gray-100 shadow-sm hover:shadow-md"}`}
+            >
+              <div className="w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 flex items-center justify-center rounded-xl text-xl">
+                <i className="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">
+                  Call Me
+                </p>
+                <h3
+                  className={`text-lg font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+                >
+                  +8801827900521
+                </h3>
+              </div>
+            </div>
 
-                    {/* Social Icons */}
-                    <div className="flex gap-4">
-                        {[
-                            { icon: "fab fa-linkedin-in", link: "https://www.linkedin.com/in/syful-islam-29882a180/", color: "hover:text-blue-700" },
-                            { icon: "fab fa-github", link: "https://github.com/Si-tajin0", color: "hover:text-gray-600" },
-                            { icon: "fab fa-instagram", link: "https://www.instagram.com/si_tajin", color: "hover:text-pink-500" },
-                            { icon: "fab fa-facebook-square", link: "https://www.facebook.com/saiful.tajin/", color: "hover:text-blue-600" }
-                        ].map((social, index) => (
-                            <a 
-                                key={index}
-                                href={social.link} 
-                                target="_blank" 
-                                rel="noreferrer"
-                                className={`w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 transition-all duration-300 ${social.color} hover:border-transparent hover:bg-gray-50`}
-                            >
-                                <i className={`${social.icon} text-lg`}></i>
-                            </a>
-                        ))}
-                    </div>
+            {/* Location Card */}
+            <div
+              className={`flex items-center gap-6 p-4 rounded-2xl border transition-transform hover:-translate-y-1 cursor-pointer ${darkMode ? "bg-gray-800 border-gray-700 hover:border-gray-600" : "bg-white border-gray-100 shadow-sm hover:shadow-md"}`}
+            >
+              <div className="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 flex items-center justify-center rounded-xl text-xl">
+                <i className="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">
+                  Location
+                </p>
+                <h3
+                  className={`text-lg font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+                >
+                  Noakhali, Bangladesh
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                    <p className="text-gray-400 text-xs mt-4">
-                        Copyright &copy; {new Date().getFullYear()} | Designed & Built by SI TAJIN
-                    </p>
+        {/* Right Side: Glassmorphism Contact Form */}
+        <div className="flex-1">
+          <div
+            className={`p-8 md:p-10 rounded-3xl border shadow-2xl ${darkMode ? "bg-gray-800/80 border-gray-700 backdrop-blur-xl" : "bg-white border-gray-100"}`}
+          >
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label
+                    className={`text-sm font-bold ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                  >
+                    Your Name
+                  </label>
+                  <input
+                    className={`w-full p-4 rounded-xl outline-none border transition-all ${darkMode ? "bg-gray-900 border-gray-700 focus:border-blue-500 text-white" : "bg-gray-50 border-gray-200 focus:border-blue-600 text-gray-900 focus:bg-white"}`}
+                    type="text"
+                    name="user_name"
+                    placeholder="John Doe"
+                    required
+                  />
                 </div>
-            </footer>
-        </section>
-    );
+                <div className="space-y-2">
+                  <label
+                    className={`text-sm font-bold ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                  >
+                    Subject
+                  </label>
+                  <input
+                    className={`w-full p-4 rounded-xl outline-none border transition-all ${darkMode ? "bg-gray-900 border-gray-700 focus:border-blue-500 text-white" : "bg-gray-50 border-gray-200 focus:border-blue-600 text-gray-900 focus:bg-white"}`}
+                    type="text"
+                    name="user_subject"
+                    placeholder="Project Inquiry"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  className={`text-sm font-bold ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                >
+                  Email Address
+                </label>
+                <input
+                  className={`w-full p-4 rounded-xl outline-none border transition-all ${darkMode ? "bg-gray-900 border-gray-700 focus:border-blue-500 text-white" : "bg-gray-50 border-gray-200 focus:border-blue-600 text-gray-900 focus:bg-white"}`}
+                  type="email"
+                  name="user_email"
+                  placeholder="john@example.com"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  className={`text-sm font-bold ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                >
+                  Your Message
+                </label>
+                <textarea
+                  className={`w-full p-4 rounded-xl outline-none border transition-all resize-none ${darkMode ? "bg-gray-900 border-gray-700 focus:border-blue-500 text-white" : "bg-gray-50 border-gray-200 focus:border-blue-600 text-gray-900 focus:bg-white"}`}
+                  rows="5"
+                  placeholder="Tell me about your project..."
+                  name="message"
+                  required
+                />
+              </div>
+
+              {/* Submit Button & Status */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-3 transition-all ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 text-white"}`}
+                >
+                  {loading ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin"></i> Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message <i className="fas fa-paper-plane"></i>
+                    </>
+                  )}
+                </button>
+
+                {done && (
+                  <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl text-center animate-fade-in">
+                    <span className="text-green-600 dark:text-green-400 font-bold flex items-center justify-center gap-2">
+                      <i className="fas fa-check-circle"></i> Message sent
+                      successfully! I will reply soon.
+                    </span>
+                  </div>
+                )}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Modern Footer Section */}
+      <footer
+        className={`mt-32 pt-12 pb-8 border-t ${darkMode ? "border-gray-800" : "border-gray-200"}`}
+      >
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Logo & Copyright */}
+          <div className="text-center md:text-left space-y-2">
+            <p
+              className={`font-black text-2xl tracking-tighter ${darkMode ? "text-white" : "text-gray-900"}`}
+            >
+              SI<span className="text-blue-600">TAJIN</span>
+            </p>
+            <p
+              className={`text-sm ${darkMode ? "text-gray-500" : "text-gray-500"}`}
+            >
+              Copyright &copy; {new Date().getFullYear()} | Crafted with{" "}
+              <i className="fas fa-heart text-red-500 mx-1"></i>
+            </p>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex gap-4">
+            {[
+              {
+                icon: "fab fa-linkedin-in",
+                link: "https://www.linkedin.com/in/syful-islam-29882a180/",
+              },
+              { icon: "fab fa-github", link: "https://github.com/Si-tajin0" },
+              {
+                icon: "fab fa-instagram",
+                link: "https://www.instagram.com/si_tajin",
+              },
+              {
+                icon: "fab fa-facebook-f",
+                link: "https://www.facebook.com/saiful.tajin/",
+              },
+            ].map((social, index) => (
+              <a
+                key={index}
+                href={social.link}
+                target="_blank"
+                rel="noreferrer"
+                className={`w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 transform hover:-translate-y-1 ${darkMode ? "bg-gray-800 text-gray-400 hover:bg-blue-600 hover:text-white border border-gray-700" : "bg-white text-gray-600 hover:bg-blue-600 hover:text-white border border-gray-200 shadow-sm"}`}
+              >
+                <i className={`${social.icon} text-lg`}></i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </footer>
+    </section>
+  );
 };
 
 export default Contact;

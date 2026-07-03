@@ -9,6 +9,7 @@ import About from "./components/About/About";
 import ProductList from "./components/ProductList/ProductList";
 import Contact from "./components/Contact/Contact";
 import Toggle from "./components/Toggle/Toggle"; // টগল বাটনটি ইম্পোর্ট করুন
+import ProjectDetails from "./components/ProjectDetails/ProjectDetails";
 
 function App() {
   const theme = useContext(ThemeContext);
@@ -50,6 +51,7 @@ function App() {
           <Route path="/portfolio" element={<ProductList />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
         </Routes>
       </main>
 
