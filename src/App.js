@@ -30,15 +30,16 @@ function App() {
   }, [location]);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${
-      darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-    }`}>
-      
+    <div
+      className={`min-h-screen transition-colors duration-500 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+    >
       {/* নেভবার সবার উপরে থাকবে */}
       <Navbar />
-      
+
       {/* ডার্ক মোড টগল বাটন (যদি নেভবারে না থাকে, তবে এখানে থাকবে) */}
-      <Toggle />
+      {/* <Toggle /> */}
 
       {/* মেইন কন্টেন্ট এরিয়া */}
       <main className="animate-fade-in">

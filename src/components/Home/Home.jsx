@@ -1,21 +1,20 @@
-import React from 'react';
-import Intro from '../Intro/Intro';
-import Toggle from '../Toggle/Toggle';
-import About from '../About/About';
-import ProductList from '../ProductList/ProductList';
-import Contact from '../Contact/Contact';
-
+import React from "react";
+import Intro from "../Intro/Intro";
+import About from "../About/About";
+import ProductList from "../ProductList/ProductList";
+import Contact from "../Contact/Contact";
+import Skills from "../Skills/Skills";
 
 const Home = () => {
-    return (
-        <div>
-            <Toggle></Toggle>
+  return (
+    <div>
       <Intro></Intro>
       <About></About>
+      <Skills></Skills>
       <ProductList></ProductList>
       <Contact></Contact>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Home;
