@@ -64,7 +64,7 @@ const Intro = () => {
             View Work
           </a>
           <a
-            href="https://drive.google.com/file/d/1iT1_YDNYSmkNsDE-JXTgZWFWubIlZ2Bp/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1Yju0lAyEcXchPuy83jiPgKOeY5tUj7BG/view?usp=sharing"
             download
             className="px-8 py-3.5 border-2 border-gray-900 dark:border-gray-600 text-gray-900 dark:text-white font-bold rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all transform hover:-translate-y-1 flex items-center gap-2"
           >
